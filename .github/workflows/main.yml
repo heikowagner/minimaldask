@@ -6,9 +6,9 @@ jobs:
   build:    
     runs-on: ubuntu-18.04    
     env:      
-      DOCKER_REGISTRY: registry-1.docker.io
+      DOCKER_REGISTRY: docker.io
       DOCKER_IMAGE: iefak01/minimaldask
-      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_USERNAME: iefak01 #${{ secrets.DOCKER_USERNAME }}
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}  
       DOCKER_TARGET_PLATFORM: linux/arm/v7,linux/amd64,linux/arm64
     steps:    
@@ -32,9 +32,8 @@ jobs:
     - name: Run Buildx (push image)      
       if: success()      
       run: |        
-        cat ./Dockerfile && \
+        docker login && \
         docker buildx build \
         --platform ${{ steps.prepare.outputs.docker_platform }} \
         --tag ${{ steps.prepare.outputs.docker_image }}:${{ steps.prepare.outputs.buildx-version }} \
-        --output type=image,push=true \
         --push .
