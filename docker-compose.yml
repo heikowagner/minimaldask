@@ -1,0 +1,19 @@
+version: "3.1"
+ 
+services:
+ master-node:
+    build: .
+    #image: daskdev/dask
+    restart: always
+    ports:
+      - "8787:8787"
+      - "8786:8786"
+    environment:
+      - PORT=8786
+    #command: ["dask-scheduler"]
+ worker-node:
+    build: .
+    environment:
+      - WORKER=true
+      - PORT=8786
+    restart: always
