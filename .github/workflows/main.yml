@@ -10,7 +10,7 @@ jobs:
       DOCKER_IMAGE: iefak01/minimaldask
       DOCKER_USERNAME: iefak01 #${{ secrets.DOCKER_USERNAME }}
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}  
-      DOCKER_TARGET_PLATFORM: linux/arm/v7 #,linux/amd64,linux/arm64
+      DOCKER_TARGET_PLATFORM: linux/arm/v7,linux/amd64,linux/arm64
     steps:    
     - name: Checkout the code       
       uses: actions/checkout@v1              
@@ -36,5 +36,4 @@ jobs:
         docker buildx build \
         --platform ${{ steps.prepare.outputs.docker_platform }} \
         --tag ${{ steps.prepare.outputs.docker_image }}:${{ steps.prepare.outputs.buildx-version }} \
-        --load . && \
-        docker push ${{ steps.prepare.outputs.docker_image }}:${{ steps.prepare.outputs.buildx-version }}
+        --push .
