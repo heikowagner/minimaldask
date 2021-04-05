@@ -33,9 +33,8 @@ jobs:
       if: success()      
       run: |        
         cat ./Dockerfile && \
-        docker buildx build \        
-        --platform ${{ steps.prepare.outputs.docker_platform }} \        
-        --tag ${{ steps.prepare.outputs.docker_image }}:${{ steps.prepare.outputs.buildx-version }} \        
-        --file ./Dockerfile \        
+        docker buildx build \
+        --platform ${{ steps.prepare.outputs.docker_platform }} \
+        --tag ${{ steps.prepare.outputs.docker_image }}:${{ steps.prepare.outputs.buildx-version }} \    
         --output type=image,push=true \
         --push .
