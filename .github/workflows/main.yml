@@ -6,7 +6,7 @@ jobs:
   build:    
     runs-on: ubuntu-18.04    
     env:      
-      DOCKER_REGISTRY: registry-1.docker.io
+      DOCKER_REGISTRY: docker.io
       DOCKER_IMAGE: iefak01/minimaldask
       DOCKER_USERNAME: iefak01 #${{ secrets.DOCKER_USERNAME }}
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}  
