@@ -32,7 +32,7 @@ jobs:
     - name: Run Buildx (push image)      
       if: success()      
       run: |        
-        cat ./Dockerfile && \
+        docker login && \
         docker buildx build \
         --platform ${{ steps.prepare.outputs.docker_platform }} \
         --tag ${{ steps.prepare.outputs.docker_image }}:${{ steps.prepare.outputs.buildx-version }} \
