@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker
+  labels:
+    app: minimaldask
+spec:
+  # modify replicas according to your case
+  replicas: 3
+  selector:
+    matchLabels:
+      env: worker
+  template:
+    metadata:
+      labels:
+        env: worker
+    spec:
+      containers:
+      - name: worker
+        image: iefak01/minimaldask:25
+        env:
+        - name: PORT
+          value: "8786"
+
+#Connect to Dashboard: kubectl port-forward service/master-node 8787:8787  localhost:8787
+
+#http://localhost:8001/api/v1/namespaces/default/services/https:master-node:8787/proxy/
+
+#kubectl port-forward service/master-node 8787:8787 &
+#kubectl port-forward service/master-node 8786:8786 &

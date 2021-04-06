@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: master-node
+spec:
+  type: NodePort
+  selector:
+    env: sheduler
+  ports:
+  - protocol: TCP
+    port: 8786
+    name: sheduler
+    targetPort: 8786
+    nodePort: 30086
+  - protocol: TCP
+    name: dashboard
+    port: 8787
+    targetPort: 8787
+    nodePort: 30087

@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sheduler
+  labels:
+    app: minimaldask
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      env: sheduler
+  template:
+    metadata:
+      labels:
+        env: sheduler
+    spec:
+      containers:
+        - name: sheduler
+          image: iefak01/minimaldask:25
+          ports:
+            - containerPort: 8786
+            - containerPort: 8787
+          env:
+          - name: PORT
+            value: "8786"
+          - name: WORKER
+            value: "false"
