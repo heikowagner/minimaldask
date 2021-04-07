@@ -21,6 +21,8 @@ spec:
         env:
         - name: PORT
           value: "8786"
+        - name: WORKER
+          value: true
 
 #Connect to Dashboard: kubectl port-forward service/master-node 8787:8787  localhost:8787
 

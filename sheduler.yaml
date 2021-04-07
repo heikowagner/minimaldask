@@ -23,5 +23,3 @@ spec:
           env:
           - name: PORT
             value: "8786"
-          - name: WORKER
-            value: "false"
