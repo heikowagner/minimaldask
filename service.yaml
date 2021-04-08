@@ -17,3 +17,7 @@ spec:
     port: 8787
     targetPort: 8787
     nodePort: 30087
+
+# Connect to Dashboard: 
+# kubectl port-forward service/master-node 8787:8787  
+# localhost:8787
