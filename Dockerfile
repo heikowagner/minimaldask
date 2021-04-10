@@ -18,6 +18,8 @@ RUN echo "COPY ENTRYPOINT"
 COPY entrypoint.sh /usr/local/bin
 RUN chmod 755 /usr/local/bin/entrypoint.sh
 
+#TEST
+
 #Just in case entrypoint.sh was edited using Windows
 RUN apk add dos2unix --update-cache --repository http://dl-3.alpinelinux.org/alpine/edge/community/ --allow-untrusted \
 	&& dos2unix /usr/local/bin/entrypoint.sh \
