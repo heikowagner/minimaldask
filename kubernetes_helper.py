@@ -1,17 +1,14 @@
 from kubernetes import client, config
-from dask.distributed import Client
 from os import path
 import yaml
-import dask.array as da
 import time
 import logging
-import subprocess
-import re
 
 
 config.load_kube_config()
 k8s_apps_v1 = client.AppsV1Api()
 k8s_core_v1 = client.CoreV1Api()
+
 
 def start_dask_cluster(
     namespace="default", worker_replicas=5, pip_packages=None, apt_packages=None
@@ -20,7 +17,7 @@ def start_dask_cluster(
         dep = yaml.safe_load(f)
         try:
             k8s_core_v1.delete_namespaced_service("master-node", namespace=namespace)
-        except: # noqa
+        except:  # noqa
             pass
         resp = k8s_core_v1.create_namespaced_service(body=dep, namespace=namespace)
         print(resp)
@@ -28,20 +25,17 @@ def start_dask_cluster(
     with open(path.dirname(__file__) + "/sheduler.yaml") as f:
         dep = yaml.safe_load(f)
 
-        #pip_packages = pip_packages
-        #apt_packages = apt_packages
+        # pip_packages = pip_packages
+        # apt_packages = apt_packages
 
         resp = update_or_deploy(dep)
     with open(path.dirname(__file__) + "/worker.yaml") as f:
         dep = yaml.safe_load(f)
 
-        #pip_packages = pip_packages
-        #apt_packages = apt_packages
+        # pip_packages = pip_packages
+        # apt_packages = apt_packages
 
-        resp = update_or_deploy(
-            dep,
-            replicas=worker_replicas
-        )
+        resp = update_or_deploy(dep, replicas=worker_replicas)
 
 
 def delete_dask_cluster(namespace):
@@ -51,9 +45,7 @@ def delete_dask_cluster(namespace):
     logging.info("dask cluster deleted")
 
 
-def update_or_deploy(
-    dep, namespace="default", replicas=1
-):
+def update_or_deploy(dep, namespace="default", replicas=1):
     logging.debug(dep)
     dep["spec"]["replicas"] = replicas
     # put packages here
