@@ -1,7 +1,10 @@
 name: Docker Build/Publish Image 
 on:  
   push:    
-    branches: [ master ]  
+    branches: [ master ]
+    paths:
+    - 'entrypoint.sh'
+    - 'Dockerfile'
 jobs:   
   build:    
     runs-on: ubuntu-18.04    
