@@ -17,9 +17,9 @@ spec:
     spec:
       containers:
       - name: worker
-        image: iefak01/minimaldask:25
+        image: iefak01/minimaldask:32
         env:
         - name: PORT
           value: "8786"
         - name: WORKER
-          value: true
+          value: "true"
