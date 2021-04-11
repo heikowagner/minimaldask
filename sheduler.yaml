@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: sheduler
-          image: iefak01/minimaldask:32
+          image: iefak01/minimaldask:latest
           ports:
             - containerPort: 8786
             - containerPort: 8787

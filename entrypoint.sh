@@ -15,10 +15,10 @@ fi
 
 if [ "$WORKER" ]; then
   echo "Worker Node starting"
-  dask-worker master-node:$PORT $ARGUMENTS
+  dask-worker master-node:$PORT $ARGUMENTS &
 else
   echo "Master Node starting"
-  dask-scheduler --port $PORT $ARGUMENTS --dashboard
+  dask-scheduler --port $PORT $ARGUMENTS --dashboard &
 fi
 
 # Run extra commands
