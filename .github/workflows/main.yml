@@ -38,5 +38,6 @@ jobs:
         docker login && \
         docker buildx build \
         --platform ${{ steps.prepare.outputs.docker_platform }} \
-        --tag ${{ steps.prepare.outputs.docker_image }} \
+        --tag ${{ steps.prepare.outputs.docker_image }}:latest \
+        --tag ${{ steps.prepare.outputs.docker_image }}:${{ steps.prepare.outputs.buildx-version }} \
         --push .
