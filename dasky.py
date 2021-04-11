@@ -2,7 +2,7 @@ from dask.distributed import Client
 import dask.array as da
 import subprocess
 import re
-from kubernetes_helper import start_dask_cluster, delete_dask_cluster
+from minimaldask import start_dask_cluster, delete_dask_cluster
 
 # We determine the ip of the master node using kubectl
 p = subprocess.Popen("kubectl cluster-info", stdout=subprocess.PIPE)
