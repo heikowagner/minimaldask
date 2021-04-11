@@ -23,4 +23,6 @@ RUN apk add dos2unix --update-cache --repository http://dl-3.alpinelinux.org/alp
 	&& dos2unix /usr/local/bin/entrypoint.sh \
 	&& apk del dos2unix
 
+RUN echo "FINISHED"
+
 ENTRYPOINT ["entrypoint.sh"]
