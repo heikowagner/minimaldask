@@ -4,7 +4,7 @@ MAINTAINER Heiko Wagner, heikowagner@thebigdatablog.com
 
 RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 RUN apk add --update --no-cache py3-numpy py3-pandas@testing
-ENV PYTHONPATH=/usr/lib/python3.8/site-packages
+RUN mv -f /usr/lib/python3.8/site-packages/* /usr/local/lib/python3.9/site-packages/
 
 RUN echo "INSTALLING DASK"
 RUN apk update \
