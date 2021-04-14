@@ -21,21 +21,24 @@ def start_dask_cluster(
             pass
         resp = k8s_core_v1.create_namespaced_service(body=dep, namespace=namespace)
 
-
-    add_env=[]
+    add_env = []
     if pip_packages:
-        add_env = add_env + [{'name': 'EXTRA_PIP_PACKAGES', 'value': pip_packages}]
+        add_env = add_env + [{"name": "EXTRA_PIP_PACKAGES", "value": pip_packages}]
     if apk_packages:
-        add_env = add_env + [{'name': 'EXTRA_APK_PACKAGES', 'value': apk_packages}]
+        add_env = add_env + [{"name": "EXTRA_APK_PACKAGES", "value": apk_packages}]
 
     with open(path.dirname(__file__) + "/sheduler.yaml") as f:
         dep = yaml.safe_load(f)
-        dep["spec"]["template"]["spec"]["containers"][0]["env"] = dep["spec"]["template"]["spec"]["containers"][0]["env"]+add_env
+        dep["spec"]["template"]["spec"]["containers"][0]["env"] = (
+            dep["spec"]["template"]["spec"]["containers"][0]["env"] + add_env
+        )
         resp = update_or_deploy(dep)
 
     with open(path.dirname(__file__) + "/worker.yaml") as f:
         dep = yaml.safe_load(f)
-        dep["spec"]["template"]["spec"]["containers"][0]["env"] = dep["spec"]["template"]["spec"]["containers"][0]["env"]+add_env
+        dep["spec"]["template"]["spec"]["containers"][0]["env"] = (
+            dep["spec"]["template"]["spec"]["containers"][0]["env"] + add_env
+        )
         resp = update_or_deploy(dep, replicas=worker_replicas)
 
 
