@@ -9,6 +9,8 @@ RUN echo "INSTALLING DASK"
 RUN apk update \
     && apk add --virtual build-deps gcc musl-dev linux-headers libffi-dev jpeg-dev zlib-dev libjpeg g++ build-base libzmq zeromq-dev\
     && apk add py-psutil libjpeg\
+    && pip uninstall -y numpy \
+    && pip install numpy \
     && pip install dask[complete] jupyter-server-proxy \
     && apk del build-deps \
     && pip cache purge \
