@@ -32,14 +32,14 @@ def start_dask_cluster(
         dep["spec"]["template"]["spec"]["containers"][0]["env"] = (
             dep["spec"]["template"]["spec"]["containers"][0]["env"] + add_env
         )
-        resp = update_or_deploy(dep)
+        update_or_deploy(dep)
 
     with open(path.dirname(__file__) + "/worker.yaml") as f:
         dep = yaml.safe_load(f)
         dep["spec"]["template"]["spec"]["containers"][0]["env"] = (
             dep["spec"]["template"]["spec"]["containers"][0]["env"] + add_env
         )
-        resp = update_or_deploy(dep, replicas=worker_replicas)
+        update_or_deploy(dep, replicas=worker_replicas)
 
 
 def delete_dask_cluster(namespace):
