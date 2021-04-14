@@ -19,7 +19,7 @@ def start_dask_cluster(
             k8s_core_v1.delete_namespaced_service("master-node", namespace=namespace)
         except:  # noqa
             pass
-        resp = k8s_core_v1.create_namespaced_service(body=dep, namespace=namespace)
+        k8s_core_v1.create_namespaced_service(body=dep, namespace=namespace)
 
     add_env = []
     if pip_packages:
