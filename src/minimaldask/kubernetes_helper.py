@@ -11,7 +11,7 @@ k8s_core_v1 = client.CoreV1Api()
 
 
 def start_dask_cluster(
-    namespace="default", worker_replicas=5, pip_packages=None, apt_packages=None
+    namespace="default", worker_replicas=5, pip_packages=None, apk_packages=None
 ):
     with open(path.dirname(__file__) + "/service.yaml") as f:
         dep = yaml.safe_load(f)
@@ -20,21 +20,21 @@ def start_dask_cluster(
         except:  # noqa
             pass
         resp = k8s_core_v1.create_namespaced_service(body=dep, namespace=namespace)
-        print(resp)
+
+    add_env=[]
+    if pip_packages:
+        add_env = add_env + [{'name': 'EXTRA_PIP_PACKAGES', 'value': pip_packages}]
+    if apk_packages:
+        add_env = add_env + [{'name': 'EXTRA_APK_PACKAGES', 'value': apk_packages}]
 
     with open(path.dirname(__file__) + "/sheduler.yaml") as f:
         dep = yaml.safe_load(f)
-
-        # pip_packages = pip_packages
-        # apt_packages = apt_packages
-
+        dep["spec"]["template"]["spec"]["containers"][0]["env"] = dep["spec"]["template"]["spec"]["containers"][0]["env"]+add_env
         resp = update_or_deploy(dep)
+
     with open(path.dirname(__file__) + "/worker.yaml") as f:
         dep = yaml.safe_load(f)
-
-        # pip_packages = pip_packages
-        # apt_packages = apt_packages
-
+        dep["spec"]["template"]["spec"]["containers"][0]["env"] = dep["spec"]["template"]["spec"]["containers"][0]["env"]+add_env
         resp = update_or_deploy(dep, replicas=worker_replicas)
 
 
