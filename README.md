@@ -10,3 +10,7 @@ Get your Dask Cluster up and runnning in seconds, carry out a computation send f
 - Clone this repo `git clone https://github.com/heikowagner/minimaldask.git`
 - Install the python package -> Go to repo folder and run `pip install .`
 - Run dasky.py
+
+## For Developers
+
+`pre-commit install`
