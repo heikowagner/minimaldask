@@ -12,9 +12,7 @@ master_ip = re.findall(r"//([\s\S]*?):", kube_conf, re.MULTILINE)[0]
 
 def main():
     start_dask_cluster(
-        namespace="default",
-        pip_packages="camelcase pymongo",
-        apk_packages="apache2 php7-apache2",
+        namespace="default", worker_dask_arguments="--nthreads 5"
     )
     print("The Dashboard is available at: http://" + master_ip + ":30087")
     dask_client = Client(master_ip + ":30086")  # noqa
